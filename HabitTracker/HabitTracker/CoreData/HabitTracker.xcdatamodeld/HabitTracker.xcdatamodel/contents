@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="21512" systemVersion="22A380" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Category" representedClassName="Category" syncable="YES">
+        <attribute name="color" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="habit" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Habit" inverseName="category" inverseEntity="Habit"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="title"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
+    </entity>
+    <entity name="Day" representedClassName="Day" syncable="YES">
+        <attribute name="number" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="habit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Habit" inverseName="days" inverseEntity="Habit"/>
+    </entity>
+    <entity name="Entry" representedClassName="Entry" syncable="YES">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="habit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Habit" inverseName="entry" inverseEntity="Habit"/>
+    </entity>
+    <entity name="Habit" representedClassName="Habit" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <attribute name="schedule" optional="YES" attributeType="String"/>
+        <attribute name="sendsNotifications" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="time" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="timesPerWeek" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="habit" inverseEntity="Category"/>
+        <relationship name="days" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Day" inverseName="habit" inverseEntity="Day"/>
+        <relationship name="entry" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Entry" inverseName="habit" inverseEntity="Entry"/>
+    </entity>
+</model>
